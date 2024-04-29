@@ -32,7 +32,7 @@ class Attention(nn.Module):
         xq = xq.transpose(1, 2)
         keys = keys.transpose(1, 2)
         values = values.transpose(1, 2)
-        # 使用 xq 与前面所有的 k 计算 score
+        # 使用 xq 与前面所有的 k 计算 score , score 是当前 token 和前面 token 进行 QK^T 计算得到的
         scores = torch.matmul(xq, keys.transpose(2, 3)) / math.sqrt(self.head_dim)
         if mask is not None:
             scores = scores + mask  # (bs, n_local_heads, slen, cache_len + slen)
